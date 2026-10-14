@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Directory Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background-color: #f9f9f9;
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 8px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        p {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: white;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        h3 {
+            margin-top: 20px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+    <h2>Search active employees by technology</h2>
+    <form method="get">
+        <input type="text" name="technology" 
+               value="{{ keyword|default:'' }}" 
+               placeholder="Enter technology e.g. Java, Python, React">
+        <button type="submit">SEARCH</button>
+    </form>
+
+    {% if message %}
+        <p style="color:red;">{{ message }}</p>
+    {% endif %}
+
+    {% if employees %}
+        <h3>Search Results for "{{ keyword }}"</h3>
+        <table>
+            <tr>
+                <th>Code</th>
+                <th>Employee Name</th>
+                <th>Technology</th>
+                <th>Experience</th>
+                <th>City</th>
+                <th>Salary</th>
+                <th>Status</th>
+            </tr>
+            {% for emp in employees %}
+            <tr>
+                <td>{{ emp.employee_code }}</td>
+                <td>{{ emp.employee_name }}</td>
+                <td>{{ emp.technology }}</td>
+                <td>{{ emp.experience }}</td>
+                <td>{{ emp.city }}</td>
+                <td>{{ emp.salary }}</td>
+                <td>{{ emp.status }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>
